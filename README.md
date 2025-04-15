@@ -135,7 +135,4 @@ EOF signifies no more input. It's often triggered by:
 
 ---
 
-## 📄 License
-
-This project is released under the MIT License.
 

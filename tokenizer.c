@@ -8,37 +8,37 @@
  */
 char **split_line(char *line)
 {
-    int bufsize = BUFFER_SIZE;
-    int position = 0;
-    char **tokens = malloc(bufsize * sizeof(char *));
-    char *token;
+	int bufsize = BUFFER_SIZE;
+	int position = 0;
+	char **tokens = malloc(bufsize * sizeof(char *));
+	char *token;
 
-    if (tokens == NULL)
-    {
-        perror("shell: malloc");
-        exit(EXIT_FAILURE);
-    }
+	if (tokens == NULL)
+	{
+		perror("shell: malloc");
+		exit(EXIT_FAILURE);
+	}
 
-    token = strtok(line, " \t\r\n\a");
-    while (token != NULL)
-    {
-        tokens[position] = token;
-        position++;
+	token = strtok(line, " \t\r\n\a");
+	while (token != NULL)
+	{
+		tokens[position] = token;
+		position++;
 
-        if (position >= bufsize)
-        {
-            bufsize += BUFFER_SIZE;
-            tokens = realloc(tokens, bufsize * sizeof(char *));
-            if (tokens == NULL)
-            {
-                perror("shell: realloc");
-                exit(EXIT_FAILURE);
-            }
-        }
+		if (position >= bufsize)
+		{
+			bufsize += BUFFER_SIZE;
+			tokens = realloc(tokens, bufsize * sizeof(char *));
+			if (tokens == NULL)
+			{
+				perror("shell: realloc");
+				exit(EXIT_FAILURE);
+			}
+		}
 
-        token = strtok(NULL, " \t\r\n\a");
-    }
-    tokens[position] = NULL;
+		token = strtok(NULL, " \t\r\n\a");
+	}
+	tokens[position] = NULL;
 
-    return (tokens);
+	return (tokens);
 }

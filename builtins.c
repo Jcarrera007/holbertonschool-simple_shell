@@ -1,29 +1,84 @@
 #include "simpleshell.h"
 
-int handle_builtin(char **args)
+int builtin_cd(char **args)
 {
-	if (_strcmp(args[0], "exit") == 0)
-	{
-		builtin_exit(args);
-		return (1);
-	}
-	if (_strcmp(args[0], "env") == 0)
-	{
-		builtin_env();
-		return (1);
-	}
-	return (0);
+    if (!args[1])
+        fprintf(stderr, "expected argument\n");
+    else if (chdir(args[1]) != 0)
+        perror("chdir");
+    return 1;
 }
 
-void builtin_exit(char **args)
+int builtin_exit(char **args)
 {
-	free_args(args);
-	exit(0);
+    (void)args;
+    exit(EXIT_SUCCESS);
+    return 0;
 }
 
-void builtin_env(void)
+int builtin_pid(char **args)
 {
-	int i;
-	for (i = 0; environ[i]; i++)
-		printf("%s\n", environ[i]);
+    (void)args;
+    printf("PID: %d\n", getpid());
+    return 1;
+}
+
+int builtin_pwd(char **args)
+{
+    char cwd[BUFFER_SIZE];
+    (void)args;
+
+    if (getcwd(cwd, sizeof(cwd)))
+        printf("%s\n", cwd);
+    else
+        perror("pwd");
+    
+    return 1;
+}
+
+int builtin_ls(char **args)
+{
+    DIR *dir;
+    struct dirent *entry;
+    char *dir_path = args[1] ? args[1] : ".";
+
+    dir = opendir(dir_path);
+    if (!dir)
+    {
+        perror("ls");
+        return 1;
+    }
+
+    while ((entry = readdir(dir)))
+        printf("%s  ", entry->d_name);
+
+    printf("\n");
+    closedir(dir);
+    return 1;
+}
+
+int builtin_cat(char **args)
+{
+    FILE *file;
+    char buffer[BUFFER_SIZE];
+    size_t n;
+
+    if (!args[1])
+    {
+        fprintf(stderr, "cat: missing file operand\n");
+        return 1;
+    }
+
+    file = fopen(args[1], "r");
+    if (!file)
+    {
+        perror("cat");
+        return 1;
+    }
+
+    while ((n = fread(buffer, 1, sizeof(buffer), file)) > 0)
+        fwrite(buffer, 1, n, stdout);
+
+    fclose(file);
+    return 1;
 }

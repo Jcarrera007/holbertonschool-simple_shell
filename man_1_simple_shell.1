@@ -1,0 +1,130 @@
+.TH HSH 1 "April 2025" "1.0" "Simple UNIX Shell Manual"
+
+.SH NAME
+hsh \- A simple UNIX command-line interpreter
+
+.SH SYNOPSIS
+.B hsh
+[file]
+
+.SH DESCRIPTION
+.B hsh
+is a custom UNIX shell built in C, inspired by classic shells like
+.BR sh (1)
+and
+.BR bash (1).
+It reads user commands, parses them, executes built-in or external programs, and interacts with the system environment.
+
+This shell also features a unique design touch: each session can output a random quote from a static list, inspired by the Puerto Rican pop culture figure, Jovani Vázquez.
+
+.SH FEATURES
+.TP
+Prints a command prompt and waits for input
+.TP
+Tokenizes input into commands and arguments
+.TP
+Handles built-in commands like
+.BR cd ,
+.BR exit ,
+and
+.BR pwd
+.TP
+Manages environment variables via
+.BR getenv ,
+.BR setenv ,
+and
+.BR unsetenv
+.TP
+Locates executables using the
+.B PATH
+environment variable
+.TP
+Creates child processes using
+.BR fork ()
+and replaces them using
+.BR execve ()
+.TP
+Waits for child processes using
+.BR wait ()
+or
+.BR waitpid ()
+.TP
+Gracefully handles
+.B EOF
+(Ctrl+D)
+
+.SH BUILT-IN COMMANDS
+.TP
+.B cd [dir]
+Changes the current working directory
+.TP
+.B pwd
+Displays the current directory
+.TP
+.B exit
+Exits the shell
+
+.SH QUOTE MECHANISM
+Each time the shell runs, it selects and prints a quote from a static list:
+.IP \[bu]
+Quotes are stored in a read-only array
+.IP \[bu]
+A persistent counter tracks calls to the function
+.IP \[bu]
+The quote index is chosen using
+.B (getpid() + counter) % n
+.IP \[bu]
+This ensures variety across calls and processes
+
+.SH SYSTEM CONCEPTS
+
+.SS Process IDs
+- PID: Unique identifier of a running process
+- PPID: Parent process's PID
+
+.SS Environment Access
+- Use
+.B getenv()
+to read
+- Use
+.B setenv()
+or
+.B unsetenv()
+to modify
+
+.SS Functions vs System Calls
+- Functions run in user space
+- System calls interact with the OS kernel directly
+
+.SS Prototypes of main
+.nf
+int main(void);
+int main(int argc, char *argv[]);
+int main(int argc, char **argv);
+.fi
+
+.SS Executing Programs
+.nf
+execve("/bin/ls", args, environ);
+.fi
+
+.SS Waiting for Children
+.nf
+int status;
+wait(&status);
+.fi
+
+.SS End-of-File
+Triggered by Ctrl+D or when input reaches end.
+
+.SH AUTHORS
+Jimmy Carrera <https://github.com/Jcarrera007>  
+Victor Diaz <https://github.com/victor10days>
+
+.SH HISTORY
+Inspired by the original UNIX system designed by Ken Thompson and Dennis Ritchie. The Bourne shell was created by Stephen R. Bourne. The B language, a predecessor to C, was also developed by Ken Thompson.
+
+.SH SEE ALSO
+sh(1), bash(1), execve(2), fork(2), wait(2), getenv(3), setenv(3), unsetenv(3)
+
+

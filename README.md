@@ -7,12 +7,12 @@ This project is a simple UNIX command-line interpreter, also known as a shell. I
 - **Our concept name is based on the first letters of each of our names and based on a local popular figure Jovani Vazquez (a Puerto Rican Folklore)**
 
 - **Concept uniqueness and personality is as follows**  
-  A list of quotes is stored in a static array.
-  We calculate the number of quotes using sizeof.
-  A static counter keeps track of how many times the function runs.
-  The quote is selected using the process ID plus the counter, wrapped within the array size.
-  This ensures a different quote is shown on each call.
-  Finally, the selected quote is printed with a bit of spacing for style.
+  A list of quotes is stored in a static array.  
+  We calculate the number of quotes using sizeof.  
+  A static counter keeps track of how many times the function runs.  
+  The quote is selected using the process ID plus the counter, wrapped within the array size.  
+  This ensures a different quote is shown on each call.  
+  Finally, the selected quote is printed with a bit of spacing for style.  
 
 ### 🧠 History & Key Figures
 

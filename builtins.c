@@ -13,17 +13,12 @@ int builtin_exit(char **args)
 {
     (void)args;
 
+    /* Arte de despedida */
     printf("\n");
-    printf("  _     _  _ __      _____     _____    \n");
-    printf(" /_/\\ /\\_/\\/_ \\ \\    / ___ \\   /\\ __/\\   \n");
-    printf(" ) ) ) ( (  ) ) )  / /\\_/\\ \\  ) )  \\ \\  \n");
-    printf("/_/ / \\ \\_\\/ / /  / /_/ (_\\ \\/ / /\\ \\ \\ \n");
-    printf("\\ \\ \\_/ / /\\ \\ \\_ \\ \\ )_/ / /\\ \\ \\/ / / \n");
-    printf(" \\ \\   / /  ) )__/\\\\ \\/_\\/ /  ) )__/ /  \n");
-    printf("  \\_\\_/_/   \\/___\\/ \\ ____/   \\/___\\/   \n");
-    printf("                                         \n");
-
+    printf(SHELL_ART);
+    fflush(stdout);
     printf("Chequeamos <3\n\n");
+
     exit(EXIT_SUCCESS);
 }
 

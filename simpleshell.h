@@ -1,6 +1,23 @@
 #ifndef SIMPLESHELL_H
 #define SIMPLESHELL_H
 
+/* ASCII ART PARA INICIO*/
+#define SHELL_ART "\n" \
+"        ____  ____      ____ \n" \
+"       |    ||    |    |    |\n" \
+"       |    ||    |    |    |\n" \
+"       |    ||    |    |    |\n" \
+" ____  |    ||    |    |    |\n" \
+"|    | |    ||    |    |    |\n" \
+"|    | |    ||\\    \\  /    /|\n" \
+"|\\____\\|____|| \\ ___\\/___ / |\n" \
+"| |    |    | \\ |   ||   | / \n" \
+" \\|____|____|  \\|___||___|/  \n" \
+"    \\(   )/      \\(    )/    \n" \
+"     '   '        '    '     \n" \
+"                              \n"
+
+/*Resto de librerias*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>

@@ -2,6 +2,11 @@
 
 int main(void)
 {
+    /*Prints "JV" in the beginning*/
+    printf(SHELL_ART);
+    printf("El JV Shell 🌴\n\n");
+    fflush(stdout);
+
     /* Captura Ctrl+C */
     signal(SIGINT, handle_signal);
 

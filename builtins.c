@@ -8,16 +8,16 @@
  */
 int builtin_cd(char **args)
 {
-    if (args[1] == NULL)
-    {
-        fprintf(stderr, "expected argument\n");
-    }
-    else if (chdir(args[1]) != 0)
-    {
-        perror("Equivocau");
-    }
+	if (args[1] == NULL)
+	{
+		fprintf(stderr, "expected argument\n");
+	}
+	else if (chdir(args[1]) != 0)
+	{
+		perror("Equivocau");
+	}
 
-    return (1);
+	return (1);
 }
 
 /**
@@ -28,13 +28,13 @@ int builtin_cd(char **args)
  */
 int builtin_exit(char **args)
 {
-    (void)args;
+	(void)args;
 
-    printf("\n");
-    printf("%s", SHELL_ART);
-    fflush(stdout);
-    printf("Chequeamos <3\n\n");
-    exit(EXIT_SUCCESS);
+	printf("\n");
+	printf("%s", SHELL_ART);
+	fflush(stdout);
+	printf("Chequeamos <3\n\n");
+	exit(EXIT_SUCCESS);
 }
 
 /**
@@ -45,10 +45,10 @@ int builtin_exit(char **args)
  */
 int builtin_pid(char **args)
 {
-    (void)args;
+	(void)args;
 
-    printf("PID: %d\n", getpid());
-    return (1);
+	printf("PID: %d\n", getpid());
+	return (1);
 }
 
 /**
@@ -59,16 +59,16 @@ int builtin_pid(char **args)
  */
 int builtin_pwd(char **args)
 {
-    char cwd[BUFFER_SIZE];
+	char cwd[BUFFER_SIZE];
 
-    (void)args;
+	(void)args;
 
-    if (getcwd(cwd, sizeof(cwd)) != NULL)
-        printf("%s\n", cwd);
-    else
-        perror("pwd");
+	if (getcwd(cwd, sizeof(cwd)) != NULL)
+		printf("%s\n", cwd);
+	else
+		perror("pwd");
 
-    return (1);
+	return (1);
 }
 
 /**
@@ -79,25 +79,25 @@ int builtin_pwd(char **args)
  */
 int builtin_ls(char **args)
 {
-    DIR *dir;
-    struct dirent *entry;
-    char *dir_path = (args[1] != NULL) ? args[1] : ".";
+	DIR *dir;
+	struct dirent *entry;
+	char *dir_path = (args[1] != NULL) ? args[1] : ".";
 
-    dir = opendir(dir_path);
-    if (dir == NULL)
-    {
-        perror("ls");
-        return (1);
-    }
+	dir = opendir(dir_path);
+	if (dir == NULL)
+	{
+		perror("ls");
+		return (1);
+	}
 
-    while ((entry = readdir(dir)) != NULL)
-    {
-        printf("%s  ", entry->d_name);
-    }
+	while ((entry = readdir(dir)) != NULL)
+	{
+		printf("%s  ", entry->d_name);
+	}
 
-    printf("\n");
-    closedir(dir);
-    return (1);
+	printf("\n");
+	closedir(dir);
+	return (1);
 }
 
 /**
@@ -108,28 +108,28 @@ int builtin_ls(char **args)
  */
 int builtin_cat(char **args)
 {
-    FILE *file;
-    char buffer[BUFFER_SIZE];
-    size_t n;
+	FILE *file;
+	char buffer[BUFFER_SIZE];
+	size_t n;
 
-    if (args[1] == NULL)
-    {
-        fprintf(stderr, "cat: missing file operand\n");
-        return (1);
-    }
+	if (args[1] == NULL)
+	{
+		fprintf(stderr, "cat: missing file operand\n");
+		return (1);
+	}
 
-    file = fopen(args[1], "r");
-    if (file == NULL)
-    {
-        perror("cat");
-        return (1);
-    }
+	file = fopen(args[1], "r");
+	if (file == NULL)
+	{
+		perror("cat");
+		return (1);
+	}
 
-    while ((n = fread(buffer, 1, sizeof(buffer), file)) > 0)
-    {
-        fwrite(buffer, 1, n, stdout);
-    }
+	while ((n = fread(buffer, 1, sizeof(buffer), file)) > 0)
+	{
+		fwrite(buffer, 1, n, stdout);
+	}
 
-    fclose(file);
-    return (1);
+	fclose(file);
+	return (1);
 }

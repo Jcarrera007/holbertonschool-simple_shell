@@ -2,7 +2,17 @@
 
 This project is a simple UNIX command-line interpreter, also known as a shell. It mimics basic functionalities of traditional UNIX shells like `sh` or `bash`, including executing commands, managing processes, and interacting with the environment.
 
-## 📚 Background Concepts
+## 📚 Concepts
+
+- **Our concept name is based on the first letters of each of our names and based on a local popular figure Jovani Vazquez (a Puerto Rican Folklore)**
+
+- **Concept uniqueness and personality is as follows**
+  A list of quotes is stored in a static array.
+  We calculate the number of quotes using sizeof.
+  A static counter keeps track of how many times the function runs.
+  The quote is selected using the process ID plus the counter, wrapped within the array size.
+  This ensures a different quote is shown on each call.
+  Finally, the selected quote is printed with a bit of spacing for style.
 
 ### 🧠 History & Key Figures
 
@@ -54,19 +64,6 @@ These allow a shell to read `PATH`, `HOME`, etc., and adjust behavior accordingl
 
 - **Function**: A reusable block of code in user space, often part of a library.
 - **System Call**: A function that requests a service from the operating system kernel (e.g., `execve`, `fork`, `read`, `write`).
-
----
-
-### 👶 Creating Processes
-
-The `fork()` system call creates a new child process. It returns:
-- `0` to the child
-- Child’s PID to the parent
-- `-1` if an error occurred
-
-```c
-pid_t pid = fork();
-```
 
 ---
 

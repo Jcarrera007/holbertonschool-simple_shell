@@ -24,9 +24,11 @@ int execute(char **args)
     pid = fork();
     if (pid == 0)
     {
-        if (execvp(args[0], args) == -1)
-            perror("execvp");
-        _exit(EXIT_FAILURE);
+		if (execvp(args[0], args) == -1)
+		{
+			fprintf(stderr, "Tu mismo: '%s'? Misterio.\n", args[0]);
+			perror("Tremendo Mosquero");
+		}		
     }
     else if (pid < 0)
         perror("fork");

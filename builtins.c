@@ -5,7 +5,7 @@ int builtin_cd(char **args)
     if (!args[1])
         fprintf(stderr, "expected argument\n");
     else if (chdir(args[1]) != 0)
-        perror("chdir");
+        perror("Equivocau");
     return 1;
 }
 

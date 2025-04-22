@@ -12,6 +12,7 @@
 #include <fcntl.h>
 #include <dirent.h>
 #include <errno.h>
+#include <time.h>
 
 #define BUFFER_SIZE 1024
 
@@ -28,6 +29,9 @@ void builtin_env(void);
 void handle_signal(int sig);
 void print_prompt(void);
 int execute(char **args);
+void shell_loop(void);
+char *read_line(void);
+char **split_line(char *line);
 
 /* String helper wrappers */
 size_t _strlen(const char *s);
@@ -38,6 +42,7 @@ char **split_line(char *line);
 
 /* Utilities */
 void list_dir(const char *path);
+void print_random_quote(void);
 
 extern char **environ;
 

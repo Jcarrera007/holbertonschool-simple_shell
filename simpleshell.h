@@ -1,8 +1,11 @@
 #ifndef SIMPLESHELL_H
 #define SIMPLESHELL_H
 
-/* ASCII ART PARA INICIO*/
-#define SHELL_ART "\n" \
+/*
+ * ASCII ART PARA INICIO Y CIERRE DEL SHELL
+ */
+#define SHELL_ART \
+"\n" \
 "        ____  ____      ____ \n" \
 "       |    ||    |    |    |\n" \
 "       |    ||    |    |    |\n" \
@@ -17,7 +20,7 @@
 "     '   '        '    '     \n" \
 "                              \n"
 
-/*Resto de librerias*/
+/* ——— Librerías permitidas ——— */
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -29,38 +32,37 @@
 #include <fcntl.h>
 #include <dirent.h>
 #include <errno.h>
-#include <time.h>
 
 #define BUFFER_SIZE 1024
 
-/* Built-in command prototypes */
+extern char **environ;
+
+/* ——— Prototipos de built-ins ——— */
 int builtin_cd(char **args);
 int builtin_exit(char **args);
 int builtin_pid(char **args);
 int builtin_ls(char **args);
 int builtin_cat(char **args);
 int builtin_pwd(char **args);
-void builtin_env(void);
+int builtin_joke(char **args);
 
-/* Shell function prototypes */
-void handle_signal(int sig);
-void print_prompt(void);
+/* ——— Prototipos del núcleo del shell ——— */
 int execute(char **args);
 void shell_loop(void);
+void print_prompt(void);
 char *read_line(void);
 char **split_line(char *line);
 
-/* String helper wrappers */
-size_t _strlen(const char *s);
-char *_strcpy(char *dest, const char *src);
-char *_strcat(char *dest, const char *src);
-char **split_line(char *line);
+/* ——— Manejador de señales ——— */
+void handle_signal(int sig);
 
-
-/* Utilities */
+/* ——— Utilidades ——— */
 void list_dir(const char *path);
 void print_random_quote(void);
 
-extern char **environ;
+/* ——— Wrappers de <string.h> ——— */
+size_t _strlen(const char *s);
+char *_strcpy(char *dest, const char *src);
+char *_strcat(char *dest, const char *src);
 
 #endif /* SIMPLESHELL_H */

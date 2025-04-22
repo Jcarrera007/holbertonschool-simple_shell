@@ -1,7 +1,7 @@
 #include "simpleshell.h"
 
 /**
- * print_prompt - Muestra el prompt con el directorio actual
+ * print_prompt - muestra el prompt con el directorio actual
  *
  * Usa getcwd(), printf(), perror(), fflush().
  */
@@ -17,29 +17,67 @@ void print_prompt(void)
     fflush(stdout);
 }
 
+/**
+ * _strlen - calcula la longitud de una cadena
+ * @s: cadena de entrada
+ *
+ * Return: longitud de la cadena (número de caracteres antes de '\0')
+ */
 size_t _strlen(const char *s)
 {
     size_t len = 0;
-    while (s && s[len])
+
+    if (s == NULL)
+        return (0);
+
+    while (s[len] != '\0')
         len++;
-    return len;
+
+    return (len);
 }
 
+/**
+ * _strcpy - copia una cadena de src a dest
+ * @dest: buffer destino
+ * @src: cadena de origen
+ *
+ * Return: puntero a dest
+ */
 char *_strcpy(char *dest, const char *src)
 {
-    char *start = dest;
-    while ((*dest++ = *src++));
-    return start;
+    char *ptr = dest;
+
+    while ((*ptr++ = *src++) != '\0')
+        ;
+
+    return (dest);
 }
 
+/**
+ * _strcat - concatena src al final de dest
+ * @dest: cadena destino y resultado
+ * @src: cadena a anexar
+ *
+ * Return: puntero a dest
+ */
 char *_strcat(char *dest, const char *src)
 {
-    char *start = dest;
-    while (*dest) dest++;
-    while ((*dest++ = *src++));
-    return start;
+    char *ptr = dest;
+
+    while (*ptr != '\0')
+        ptr++;
+
+    while ((*ptr++ = *src++) != '\0')
+        ;
+
+    return (dest);
 }
 
+/**
+ * print_random_quote - imprime una frase aleatoria de Jovani Vázquez
+ *
+ * Usa getpid() y un contador interno para rotar frases sin rand()/time().
+ */
 void print_random_quote(void)
 {
     static const char *quotes[] = {
@@ -52,8 +90,10 @@ void print_random_quote(void)
     };
     size_t n = sizeof(quotes) / sizeof(quotes[0]);
     static size_t counter = 0;
-    /* Índice “aleatorio”: base en PID + contador */
-    size_t idx = ((size_t)getpid() + counter) % n;
+    size_t idx;
+
+    idx = ((size_t)getpid() + counter) % n;
     counter++;
-    printf("\n %s\n\n", quotes[idx]);
+
+    printf("\n%s\n\n", quotes[idx]);
 }

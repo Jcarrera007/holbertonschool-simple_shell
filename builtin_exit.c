@@ -5,6 +5,7 @@
  * @args: array de argumentos (no usado)
  *
  * Exit: termina el proceso con EXIT_SUCCESS
+ * Return: This function does not return (calls exit)
  */
 
 int builtin_exit(char **args)

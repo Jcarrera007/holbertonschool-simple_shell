@@ -7,18 +7,18 @@
  */
 int main(void)
 {
-    /* Print ASCII art and welcome message */
-    printf("%s", SHELL_ART);
-    printf("El JV Shell 🌴\n\n");
-    fflush(stdout);
+	/* Print ASCII art and welcome message */
+	printf("%s", SHELL_ART);
+	printf("El JV Shell 🌴\n\n");
+	fflush(stdout);
 
-    /* Handle Ctrl+C (SIGINT) */
-    signal(SIGINT, handle_signal);
+	/* Handle Ctrl+C (SIGINT) */
+	signal(SIGINT, handle_signal);
 
-    /* Start the main shell loop */
-    shell_loop();
+	/* Start the main shell loop */
+	shell_loop();
 
-    return (EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 /**
@@ -28,26 +28,26 @@ int main(void)
  */
 void shell_loop(void)
 {
-    char *line = NULL;
-    char **args;
-    size_t bufsize = 0;
-    int status;
+	char *line = NULL;
+	char **args;
+	size_t bufsize = 0;
+	int status;
 
-    do {
-        print_prompt();
-        if (getline(&line, &bufsize, stdin) == -1)
-            break; /* EOF or read error */
+	do {
+		print_prompt();
+		if (getline(&line, &bufsize, stdin) == -1)
+			break; /* EOF or read error */
 
-        args = split_line(line);
-        status = execute(args);
+		args = split_line(line);
+		status = execute(args);
 
-        if (status)
-            print_random_quote();
+		if (status)
+			print_random_quote();
 
-        free(args);
-    } while (status);
+		free(args);
+	} while (status);
 
-    free(line);
+	free(line);
 }
 
 /**
@@ -58,6 +58,7 @@ void shell_loop(void)
  */
 void handle_signal(int sig)
 {
-    (void)sig;
-    printf("\n($) ");
+	(void)sig;
+	printf("\n($) ");
 }
+

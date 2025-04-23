@@ -5,20 +5,20 @@
  * ASCII ART PARA INICIO Y CIERRE DEL SHELL
  */
 #define SHELL_ART \
-  "\n" \
-  "        ____  ____      ____ \n" \
-  "       |    ||    |    |    |\n" \
-  "       |    ||    |    |    |\n" \
-  "       |    ||    |    |    |\n" \
-  " ____  |    ||    |    |    |\n" \
-  "|    | |    ||    |    |    |\n" \
-  "|    | |    ||\\    \\  /    /|\n" \
-  "|\\____\\|____|| \\ ___\\/___ / |\n" \
-  "| |    |    | \\ |   ||   | / \n" \
-  " \\|____|____|  \\|___||___|/  \n" \
-  "    \\(   )/      \\(    )/    \n" \
-  "     '   '        '    '     \n" \
-  "                              \n"
+"\n" \
+"        ____  ____      ____ \n" \
+"       |    ||    |    |    |\n" \
+"       |    ||    |    |    |\n" \
+"       |    ||    |    |    |\n" \
+" ____  |    ||    |    |    |\n" \
+"|    | |    ||    |    |    |\n" \
+"|    | |    ||\\    \\  /    /|\n" \
+"|\\____\\|____|| \\ ___\\/___ / |\n" \
+"| |    |    | \\ |   ||   | / \n" \
+" \\|____|____|  \\|___||___|/  \n" \
+"    \\(   )/      \\(    )/    \n" \
+"     '   '        '    '     \n" \
+"                              \n"
 
 /* ——— Librerías permitidas ——— */
 #include <stdio.h>
@@ -59,6 +59,9 @@ void handle_signal(int sig);
 /* ——— Utilidades ——— */
 void list_dir(const char *path);
 void print_random_quote(void);
+char *get_path_env(void);
+char *search_path_for_cmd(char *cmd, char *path_dup);
+
 
 /* ——— Wrappers de <string.h> ——— */
 size_t _strlen(const char *s);

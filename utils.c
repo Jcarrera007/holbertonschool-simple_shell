@@ -80,7 +80,7 @@ char *_strcat(char *dest, const char *src)
  */
 void print_random_quote(void)
 {
-	static const char *quotes[] = {
+	static const char *const quotes[] = {
 		"“Quiero café… ¡dame café!” —Jovani Vázquez",
 		"“¡Toma mango!” —Jovani Vázquez",
 		"“Quisiera ser una mosca, para pararme en tu piel y relamerla.” —Jovani Vázquez",
@@ -89,7 +89,7 @@ void print_random_quote(void)
 		"“Dios no te dejará en vergüenza.” —Jovani Vázquez"
 	};
 	size_t n = sizeof(quotes) / sizeof(quotes[0]);
-	static size_t counter = 0;
+	static size_t counter;
 	size_t idx;
 
 	idx = ((size_t)getpid() + counter) % n;

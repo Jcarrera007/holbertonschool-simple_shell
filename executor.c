@@ -39,25 +39,18 @@ static int execute_external(char **args)
  *
  * Return: 1 to continue shell loop, 0 to exit
  */
-int execute(char **args)
-{
-	if (args[0] == NULL)
-		return (1);
-
-	if (strcmp(args[0], "cd") == 0)
-		return (builtin_cd(args));
-	if (strcmp(args[0], "exit") == 0)
-		return (builtin_exit(args));
-	if (strcmp(args[0], "pid") == 0)
-		return (builtin_pid(args));
-	if (strcmp(args[0], "ls") == 0)
-		return (builtin_ls(args));
-	if (strcmp(args[0], "cat") == 0)
-		return (builtin_cat(args));
-	if (strcmp(args[0], "pwd") == 0)
-		return (builtin_pwd(args));
-	if (strcmp(args[0], "joke") == 0)
-		return (builtin_joke(args));
-
-	return (execute_external(args));
-}
+ int execute(char **args)
+ {
+	 if (args[0] == NULL)
+		 return (1);
+ 
+	 if (strcmp(args[0], "cd") == 0)
+		 return (builtin_cd(args));
+	 if (strcmp(args[0], "exit") == 0)
+		 return (builtin_exit(args));
+	 if (strcmp(args[0], "pid") == 0)
+		 return (builtin_pid(args));
+	 /* note: no check for ls, cat, pwd, joke—fall through to execvp */
+ 
+	 return (execute_external(args));
+ }

@@ -1,21 +1,27 @@
-# hsh – A Simple UNIX Shell
+README.md
+markdown
+Copy code
+# hsh — Holberton School Simple Shell
 
-`hsh` is a minimalist UNIX command interpreter written in C, built for educational purposes under strict constraints:
-- **Language**: C (GNU89)
-- **Style**: Betty‐compliant
-- **Memory Safety**: No leaks (Valgrind‐tested)
-- **Modularity**: ≤5 functions per file
-- **Allowed Calls**: `fork`, `execve`, `waitpid`, `stat`, `getcwd`, `getline`, `isatty`, and string/I/O routines.
+A lightweight UNIX command interpreter written in C for educational purposes.  
 
 ## Features
 
-- Interactive prompt with current directory and Jovani Vázquez quotes.
-- Executes built‐in commands:
-  - `cd [dir]` – change directory
-  - `exit` – exit shell
-  - `env` – print environment
-  - `pid` – show shell’s PID
-- External commands via `PATH` lookup (or absolute/relative paths).
-- Robust error messaging matching `/bin/sh`.
-- Handles EOF (Ctrl+D) and interrupts (Ctrl+C).
-- Non-interactive mode: suppresses prompts and banners, returns correct exit codes (127 on “not found”).
+- **Interactive Prompt**: Displays current directory and custom `$ ` prompt.  
+- **Non-Interactive Mode**: Reads commands from pipe or file, then exits.  
+- **Built-in Commands** (no fork):
+  - `exit [status]` — Exit shell with optional status code.  
+  - `env` — Print current environment.  
+  - `cd [dir]` — Change directory (defaults to `$HOME`).  
+  - `pid` — Print shell’s PID.  
+  - `pwd` — Print working directory.  
+  - `ls [dir]`, `cat [file]`, `joke` — Additional fun built-ins.  
+- **External Execution**: Searches `$PATH`, spawns child with `fork()` + `execve()`.  
+- **Error Handling**: Matches `/bin/sh` style (`<prog>: <line>: <cmd>: not found`).  
+- **Signal Handling**: Ignores Ctrl+C in shell, forwards to child processes.  
+- **Memory Safe**: No leaks (Valgrind-tested).  
+
+## Compilation
+
+```bash
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh

@@ -1,9 +1,9 @@
 #include "simpleshell.h"
 
 /*Globals declared*/
-char           *g_prog_name;
-unsigned int    g_line_count;
-int              g_last_status;
+char *g_prog_name;
+unsigned int g_line_count;
+int g_last_status;
 
 /**
  * interactive - returns non-zero if stdin is a terminal
@@ -51,37 +51,36 @@ int main(int argc, char **argv)
  */
 void shell_loop(void)
 {
-    char    *line    = NULL;
-    char    **args   = NULL;
-    size_t   bufsize = 0;
-
+    char *line = NULL;
+    char **args = NULL;
+    size_t bufsize = 0;
+    int status;
+ 
     while (1)
     {
         if (interactive())
             print_prompt();
-
+ 
         if (getline(&line, &bufsize, stdin) == -1)
-            break;  /* EOF */
-
+            break; 
+ 
         g_line_count++;
-        args = split_line(line);
-        execute(args);
+        args   = split_line(line);
+        status = execute(args);
         free(args);
-
-        if (!interactive())
-            break;
-
-        print_random_quote();
+ 
+        if (interactive() && status)
+            print_random_quote();
     }
-
+ 
     free(line);
 }
 
 /* handle_signal - takes SIGINT and redisplay prompt
  * @sig: the signal number */
- void handle_signal(int sig)
- {
-     (void)sig;
-     if (interactive())
-         write(STDOUT_FILENO, "\n($) ", 6);
- }
+void handle_signal(int sig)
+{
+    (void)sig;
+    if (interactive())
+        write(STDOUT_FILENO, "\n($) ", 6);
+}

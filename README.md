@@ -4,7 +4,7 @@
 [![Shell](https://img.shields.io/badge/Shell-Project-green.svg)](#)
 [![Valgrind-Tested](https://img.shields.io/badge/Memory%20Safe-Valgrind-tested-brightgreen.svg)](https://valgrind.org/)
 
-**hsh** 
+**hsh**  
   -is a lightweight UNIX command-line interpreter written in **C**. It was developed for the Holberton School curriculum to explore the inner workings of a shell, including process creation, signal handling, memory management, and more.
 
 ---

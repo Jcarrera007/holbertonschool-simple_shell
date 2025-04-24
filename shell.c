@@ -1,63 +1,79 @@
 #include "simpleshell.h"
 
 /**
- * main - entry point for JV Shell
+ * interactive - returns non-zero if stdin is a terminal
  *
- * Return: EXIT_SUCCESS to indicate successful execution
+ * Return: 1 if interactive, 0 otherwise
+ */
+static int interactive(void)
+{
+    return (isatty(STDIN_FILENO));
+}
+
+/**
+ * main - entry point for the shell
+ *
+ * Prints banner only in interactive mode, sets up signal handler,
+ * then enters the shell loop.
+ *
+ * Return: EXIT_SUCCESS on normal exit
  */
 int main(void)
 {
-    /* Print ASCII art and welcome message */
-    printf("%s", SHELL_ART);
-    printf("El JV Shell 🌴\n\n");
-    fflush(stdout);
+    if (interactive())
+    {
+        /* banner only when run from a real terminal */
+        printf("%s", SHELL_ART);
+        printf("El JV Shell 🌴\n\n");
+        fflush(stdout);
+    }
 
-    /* Handle Ctrl+C (SIGINT) */
     signal(SIGINT, handle_signal);
-
-    /* Start the main shell loop */
     shell_loop();
 
     return (EXIT_SUCCESS);
 }
 
 /**
- * shell_loop - main loop for reading and executing commands
+ * shell_loop - read, execute, repeat until EOF
  *
- * Return: void
+ * In interactive mode prints a prompt before each command and
+ * a random Jovani quote afterward. Suppresses all of that when
+ * stdin is not a TTY.
  */
 void shell_loop(void)
 {
-    char *line = NULL;
-    char **args;
-    size_t bufsize = 0;
-    int status;
+    char    *line    = NULL;
+    char    **args   = NULL;
+    size_t  bufsize = 0;
+    int     status;
 
-    do {
-        print_prompt();
+    while (1)
+    {
+        if (interactive())
+            print_prompt();
+
         if (getline(&line, &bufsize, stdin) == -1)
-            break; /* EOF or read error */
+            break; /* EOF (Ctrl+D) */
 
-        args = split_line(line);
+        args   = split_line(line);
         status = execute(args);
-
-        if (status)
-            print_random_quote();
-
         free(args);
-    } while (status);
+
+        if (status && interactive())
+            print_random_quote();
+    }
 
     free(line);
 }
 
 /**
- * handle_signal - handles SIGINT (Ctrl+C) gracefully
+ * handle_signal - catch SIGINT and redisplay prompt
  * @sig: signal number (should be SIGINT)
- *
- * Return: void
  */
 void handle_signal(int sig)
 {
     (void)sig;
-    printf("\n($) ");
+    if (interactive())
+        write(STDOUT_FILENO, "\n($) ", 6);
 }

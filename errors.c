@@ -8,8 +8,8 @@
  *
  * Return: void
  */
-void print_error(char *prog_name, char *cmd, int count)
+void print_error(char *prog_name, char *cmd, unsigned int line_count)
 {
-	fprintf(stderr, "%s: %d: %s: not found\n",
-		prog_name, count, cmd);
+	fprintf(stderr, "%s: %u: %s: not found\n",
+		prog_name, line_count, cmd);
 }

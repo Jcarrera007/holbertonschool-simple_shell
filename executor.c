@@ -6,32 +6,29 @@
  *
  * Return: 1 to continue shell loop
  */
-static int execute_external(char **args)
-{
-	pid_t pid;
-	int status;
-
-	pid = fork();
-	if (pid == 0)
-	{
-		if (execvp(args[0], args) == -1)
-		{
-			fprintf(stderr, "Tu mismo: '%s'? Misterio.\n", args[0]);
-			perror("Tremendo Mosquero");
-		}
-		_exit(EXIT_FAILURE);
-	}
-	else if (pid < 0)
-	{
-		perror("fork");
-	}
-	else
-	{
-		waitpid(pid, &status, 0);
-	}
-
-	return (1);
-}
+ static int execute_external(char **args)
+ {
+	 pid_t pid;
+	 int   status;
+ 
+	 pid = fork();
+	 if (pid == 0)
+	 {
+		 execvp(args[0], args);
+		 print_error(g_prog_name, args[0], g_line_count);
+		 _exit(127);
+	 }
+	 else if (pid < 0)
+	 {
+		 perror(g_prog_name);
+	 }
+	 else
+	 {
+		 waitpid(pid, &status, 0);
+	 }
+ 
+	 return (1);
+ }
 
 /**
  * execute - resolves and runs a command (builtin or external)

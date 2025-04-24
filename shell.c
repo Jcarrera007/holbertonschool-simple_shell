@@ -3,6 +3,7 @@
 /*Globals declared*/
 char           *g_prog_name;
 unsigned int    g_line_count;
+int              g_last_status;
 
 /**
  * interactive - returns non-zero if stdin is a terminal
@@ -22,58 +23,59 @@ static int interactive(void)
  *
  * Return: EXIT_SUCCESS on normal exit
  */
- int main(int argc, char **argv)
- {
+int main(int argc, char **argv)
+{
     (void)argc;
-     g_prog_name  = argv[0];
-     g_line_count = 0;
-     
+    g_prog_name  = argv[0];
+    g_line_count = 0;
+    g_last_status = 0;
+ 
     if (interactive())
     {
-        /* banner only when run from a real terminal */
         printf("%s", SHELL_ART);
         printf("El JV Shell 🌴\n\n");
         fflush(stdout);
     }
-
+ 
     signal(SIGINT, handle_signal);
     shell_loop();
-
+ 
+    if (!interactive())
+        return (g_last_status);
+ 
     return (EXIT_SUCCESS);
 }
 
 /**
  * shell_loop - read/ex​ecute commands until EOF or exit built-in
  */
- void shell_loop(void)
- {
-     char    *line    = NULL;
-     char    **args   = NULL;
-     size_t  bufsize  = 0;
-     int     status;  /* we will use this below */
- 
-     while (1)
-     {
-         if (interactive())
-             print_prompt();
- 
-         if (getline(&line, &bufsize, stdin) == -1)
-             break;  /* EOF (Ctrl+D) */
- 
-         g_line_count++;
-         args   = split_line(line);
-         status = execute(args);  /* status is now used */
-         free(args);
- 
-         if (status == 0)
-             break;               /* exit built-in signaled stop */
- 
-         if (interactive())
-             print_random_quote();
-     }
- 
-     free(line);
- }
+void shell_loop(void)
+{
+    char    *line    = NULL;
+    char    **args   = NULL;
+    size_t   bufsize = 0;
+
+    while (1)
+    {
+        if (interactive())
+            print_prompt();
+
+        if (getline(&line, &bufsize, stdin) == -1)
+            break;  /* EOF */
+
+        g_line_count++;
+        args = split_line(line);
+        execute(args);
+        free(args);
+
+        if (!interactive())
+            break;
+
+        print_random_quote();
+    }
+
+    free(line);
+}
 
 /* handle_signal - takes SIGINT and redisplay prompt
  * @sig: the signal number */

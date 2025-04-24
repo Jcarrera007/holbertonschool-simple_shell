@@ -38,6 +38,7 @@
 extern char **environ;
 extern char *g_prog_name;
 extern unsigned int g_line_count;
+extern int g_last_status;
 
 
 /* Prototipos de built-ins */

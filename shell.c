@@ -68,6 +68,8 @@ void shell_loop(void)
         args   = split_line(line);
         status = execute(args);
         free(args);
+        if (status == 0)
+            break;
  
         if (interactive() && status)
             print_random_quote();

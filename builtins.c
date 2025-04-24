@@ -21,24 +21,13 @@ int builtin_cd(char **args)
 	return (1);
 }
 
-/**
- * builtin_exit - prints exit art and exits the shell
+/** builtin_exit - prints exit art and exits the shell
  * @args: array of arguments (unused)
- *
- * Exit: terminates the process with EXIT_SUCCESS
- */
-int builtin_exit(char **args)
+ **/
+ int builtin_exit(char **args)
 {
 	(void)args;
-
-	if (isatty(STDIN_FILENO))
-	{
-		printf("\n%s", SHELL_ART);
-		printf("Chequeamos <3\n\n");
-		fflush(stdout);
-	}
- 
-	exit(EXIT_SUCCESS);
+	return (0);
 }
 
 /**

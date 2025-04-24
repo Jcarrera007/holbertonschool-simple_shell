@@ -1,4 +1,5 @@
 #include "simpleshell.h"
+#include <unistd.h>
 
 /**
  * builtin_cd - changes the current working directory
@@ -30,10 +31,13 @@ int builtin_exit(char **args)
 {
 	(void)args;
 
-	printf("\n");
-	printf("%s", SHELL_ART);
-	fflush(stdout);
-	printf("Chequeamos <3\n\n");
+	if (isatty(STDIN_FILENO))
+	{
+		printf("\n%s", SHELL_ART);
+		printf("Chequeamos <3\n\n");
+		fflush(stdout);
+	}
+ 
 	exit(EXIT_SUCCESS);
 }
 

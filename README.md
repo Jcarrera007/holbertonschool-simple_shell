@@ -75,16 +75,7 @@ Or:
 ---
 
 ## 👥 Authors
-
-- **Jimmy Carrera Otero**  
-  [GitHub: Jcarrera007](https://github.com/Jcarrera007)
-
-- **Victor Diaz**  
-  [GitHub: victor10days](https://github.com/victor10days)
-
-> Víctor focused on the design and implementation, while Jimmy focused on documentation.
-
-(See the full list in the [AUTHORS](./AUTHORS) file.)
+-See the full list in the [AUTHORS](./AUTHORS) file.
 
 ---
 
